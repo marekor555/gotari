@@ -1,7 +1,7 @@
 package main
 
 import (
-	line "gotari/entities"
+	"gotari/entities/line"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )

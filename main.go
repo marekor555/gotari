@@ -1,6 +1,8 @@
 package main
 
 import (
+	line "gotari/entities"
+
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
@@ -14,12 +16,23 @@ func main() {
 	defer rl.CloseWindow()
 	rl.SetTargetFPS(60)
 
+	player := line.NewLine()
+
 	for !rl.WindowShouldClose() {
 		rl.BeginDrawing()
-		rl.ClearBackground(rl.DarkGreen)
+		rl.ClearBackground(rl.Black)
 
-		rl.DrawCircle(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, WINDOW_HEIGHT/2, rl.DarkBlue)
+		player.Draw()
 
 		rl.EndDrawing()
+
+		playerDirection := 0
+		if rl.IsKeyDown(rl.KeyA) {
+			playerDirection--
+		}
+		if rl.IsKeyDown(rl.KeyD) {
+			playerDirection++
+		}
+		player.Move(playerDirection)
 	}
 }

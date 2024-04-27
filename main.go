@@ -1,20 +1,27 @@
 package main
 
 import (
+	"gotari/constants"
+	"gotari/entities/block"
 	"gotari/entities/line"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
-const (
-	WINDOW_WIDTH  = 800
-	WINDOW_HEIGHT = 450
+var (
+	blocks [8][3]block.Block
 )
 
 func main() {
-	rl.InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "gotari")
+	rl.InitWindow(constants.WINDOW_WIDTH, constants.WINDOW_HEIGHT, "gotari")
 	defer rl.CloseWindow()
 	rl.SetTargetFPS(60)
+
+	for x := range 8 {
+		for y := range 3 {
+			blocks[x][y] = block.NewBlock([2]float32{float32(x) * constants.BLOCK_WIDTH, float32(y)*constants.BLOCK_HEIGHT + 50})
+		}
+	}
 
 	player := line.NewLine()
 
@@ -23,6 +30,12 @@ func main() {
 		rl.ClearBackground(rl.Black)
 
 		player.Draw()
+
+		for x := range 8 {
+			for y := range 3 {
+				blocks[x][y].Draw()
+			}
+		}
 
 		rl.EndDrawing()
 

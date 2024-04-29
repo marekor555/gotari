@@ -2,6 +2,7 @@ package main
 
 import (
 	"gotari/constants"
+	ball_ "gotari/entities/ball"
 	"gotari/entities/block"
 	"gotari/entities/line"
 
@@ -22,14 +23,15 @@ func main() {
 			blocks[x][y] = block.NewBlock([2]float32{float32(x) * constants.BLOCK_WIDTH, float32(y)*constants.BLOCK_HEIGHT + 50})
 		}
 	}
-
 	player := line.NewLine()
+	ball := ball_.NewBall()
 
 	for !rl.WindowShouldClose() {
 		rl.BeginDrawing()
 		rl.ClearBackground(rl.Black)
 
 		player.Draw()
+		ball.Draw()
 
 		for x := range 8 {
 			for y := range 3 {
@@ -47,5 +49,6 @@ func main() {
 			playerDirection++
 		}
 		player.Move(playerDirection)
+		ball.Move(&blocks, player)
 	}
 }

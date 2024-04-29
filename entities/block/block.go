@@ -12,7 +12,9 @@ type Block struct {
 }
 
 func (block Block) Draw() {
-	rl.DrawRectangle(block.Collider.ToInt32().X, block.Collider.ToInt32().Y, block.Collider.ToInt32().Width, block.Collider.ToInt32().Height, rl.DarkBlue)
+	if !block.Destroyed {
+		rl.DrawRectangle(block.Collider.ToInt32().X, block.Collider.ToInt32().Y, block.Collider.ToInt32().Width, block.Collider.ToInt32().Height, rl.DarkBlue)
+	}
 	rl.DrawRectangleLines(block.Collider.ToInt32().X, block.Collider.ToInt32().Y, block.Collider.ToInt32().Width, block.Collider.ToInt32().Height, rl.Blue)
 }
 
@@ -22,6 +24,7 @@ func (block Block) CheckCollision(rect rl.Rectangle) bool {
 
 func (block *Block) Destroy() {
 	block.Destroyed = true
+	println("destroy:", block.Collider.ToInt32().X, block.Collider.ToInt32().Y)
 }
 
 func NewBlock(pos [2]float32) Block {

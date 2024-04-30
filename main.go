@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	blocks [8][3]block.Block
+	blocks [constants.BLOCK_COLUMNS][constants.BLOCK_ROWS]block.Block
 )
 
 func main() {
@@ -18,8 +18,8 @@ func main() {
 	defer rl.CloseWindow()
 	rl.SetTargetFPS(60)
 
-	for x := range 8 {
-		for y := range 3 {
+	for x := range constants.BLOCK_COLUMNS {
+		for y := range constants.BLOCK_ROWS {
 			blocks[x][y] = block.NewBlock([2]float32{float32(x) * constants.BLOCK_WIDTH, float32(y)*constants.BLOCK_HEIGHT + 50})
 		}
 	}
@@ -30,8 +30,8 @@ func main() {
 		rl.BeginDrawing()
 		rl.ClearBackground(rl.Black)
 
-		for x := range 8 {
-			for y := range 3 {
+		for x := range constants.BLOCK_COLUMNS {
+			for y := range constants.BLOCK_ROWS {
 				blocks[x][y].Draw()
 			}
 		}

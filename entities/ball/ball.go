@@ -17,7 +17,7 @@ func (ball Ball) Draw() {
 	rl.DrawRectangle(ball.Collider.ToInt32().X, ball.Collider.ToInt32().Y, ball.Collider.ToInt32().Width, ball.Collider.ToInt32().Height, rl.White)
 }
 
-func (ball *Ball) Move(blocks *[8][3]block.Block, player line.Line) {
+func (ball *Ball) Move(blocks *[constants.BLOCK_COLUMNS][constants.BLOCK_ROWS]block.Block, player line.Line) {
 	for x, column := range blocks {
 		for y := range column {
 			block := &blocks[x][y]

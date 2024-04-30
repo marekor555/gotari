@@ -1,13 +1,9 @@
 package line
 
 import (
-	rl "github.com/gen2brain/raylib-go/raylib"
-)
+	"gotari/constants"
 
-const (
-	WINDOW_WIDTH  = 800
-	WINDOW_HEIGHT = 450
-	SPEED         = 10
+	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
 type Line struct {
@@ -17,10 +13,10 @@ type Line struct {
 func (line *Line) Move(direction int) {
 	if direction == -1 && line.Collider.X <= 0 {
 		return
-	} else if direction == 1 && line.Collider.X+line.Collider.Width >= WINDOW_WIDTH {
+	} else if direction == 1 && line.Collider.X+line.Collider.Width >= float32(constants.WINDOW_WIDTH) {
 		return
 	}
-	line.Collider.X += float32(direction) * 10
+	line.Collider.X += float32(direction) * constants.LINE_SPEED
 }
 
 func (line Line) Draw() {
@@ -29,6 +25,6 @@ func (line Line) Draw() {
 
 func NewLine() Line {
 	return Line{
-		Collider: rl.NewRectangle(0, WINDOW_HEIGHT-25, 200, 25),
+		Collider: rl.NewRectangle(0, float32(constants.WINDOW_HEIGHT)-constants.LINE_HEIGHT_OFFSET, constants.LINE_WIDTH, constants.LINE_HEIGHT),
 	}
 }

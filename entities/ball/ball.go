@@ -9,12 +9,12 @@ import (
 )
 
 type Ball struct {
-	Collider  rl.Rectangle
+	Point     rl.Vector2
 	Direction [2]int
 }
 
 func (ball Ball) Draw() {
-	rl.DrawRectangle(ball.Collider.ToInt32().X, ball.Collider.ToInt32().Y, ball.Collider.ToInt32().Width, ball.Collider.ToInt32().Height, rl.White)
+	rl.DrawCircle(int32(ball.Point.X), int32(ball.Point.Y), constants.BALL_RADIUS, rl.White)
 }
 
 func (ball *Ball) Move(blocks *[constants.BLOCK_COLUMNS][constants.BLOCK_ROWS]block.Block, player line.Line) {
@@ -24,16 +24,16 @@ func (ball *Ball) Move(blocks *[constants.BLOCK_COLUMNS][constants.BLOCK_ROWS]bl
 			if block.Destroyed {
 				continue
 			}
-			if rl.CheckCollisionRecs(ball.Collider, block.Collider) {
-				if ball.Collider.Y > block.Collider.Y {
+			if rl.CheckCollisionCircleRec(ball.Point, constants.BALL_RADIUS, block.Collider) {
+				if ball.Point.Y > block.Collider.Y {
 					ball.Direction[1] = 1
-				} else if ball.Collider.Y < block.Collider.Y {
+				} else if ball.Point.Y < block.Collider.Y {
 					ball.Direction[1] = -1
 				}
 
-				if ball.Collider.X > block.Collider.X {
+				if ball.Point.X > block.Collider.X {
 					ball.Direction[0] = 1
-				} else if ball.Collider.X < block.Collider.X {
+				} else if ball.Point.X < block.Collider.X {
 					ball.Direction[0] = 1
 				}
 				block.Destroy()
@@ -41,29 +41,29 @@ func (ball *Ball) Move(blocks *[constants.BLOCK_COLUMNS][constants.BLOCK_ROWS]bl
 		}
 	}
 
-	if rl.CheckCollisionRecs(ball.Collider, player.Collider) {
+	if rl.CheckCollisionCircleRec(ball.Point, constants.BALL_RADIUS, player.Collider) {
 		ball.Direction[1] = -1
 	}
 
-	if ball.Collider.X <= 0 {
+	if ball.Point.X <= 0 {
 		ball.Direction[0] = 1
-	} else if ball.Collider.X+constants.BALL_WIDTH >= float32(constants.WINDOW_WIDTH) {
+	} else if ball.Point.X+constants.BALL_RADIUS >= float32(constants.WINDOW_WIDTH) {
 		ball.Direction[0] = -1
 	}
 
-	if ball.Collider.Y <= 0 {
+	if ball.Point.Y <= 0 {
 		ball.Direction[1] = 1
-	} else if ball.Collider.Y+constants.BALL_HEIGHT >= float32(constants.WINDOW_HEIGHT) {
+	} else if ball.Point.Y+constants.BALL_RADIUS >= float32(constants.WINDOW_HEIGHT) {
 		ball.Direction[1] = -1
 	}
 
-	ball.Collider.X += float32(ball.Direction[0]) * constants.BALL_SPEED
-	ball.Collider.Y += float32(ball.Direction[1]) * constants.BALL_SPEED
+	ball.Point.X += float32(ball.Direction[0]) * constants.BALL_SPEED
+	ball.Point.Y += float32(ball.Direction[1]) * constants.BALL_SPEED
 }
 
 func NewBall() Ball {
 	return Ball{
 		Direction: [2]int{-1, -1},
-		Collider:  rl.NewRectangle(float32(constants.WINDOW_HEIGHT/2), float32(constants.WINDOW_HEIGHT)-75, constants.BALL_WIDTH, constants.BALL_HEIGHT),
+		Point:     rl.NewVector2(float32(constants.WINDOW_WIDTH/2), float32(constants.WINDOW_HEIGHT)-constants.LINE_HEIGHT_OFFSET*2),
 	}
 }

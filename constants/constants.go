@@ -9,8 +9,9 @@ const (
 	BLOCK_ROWS    int     = 6
 	BLOCK_COLUMNS int     = 16
 
-	BALL_RADIUS float32 = 10
-	BALL_SPEED  float32 = 4
+	BALL_RADIUS      float32 = 10
+	BALL_SPEED_START float32 = 2
+	BALL_SPEED_MAX   float32 = 5
 
 	LINE_HEIGHT_OFFSET float32 = 25
 	LINE_WIDTH         float32 = 150

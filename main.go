@@ -30,14 +30,14 @@ func main() {
 		rl.BeginDrawing()
 		rl.ClearBackground(rl.Black)
 
-		player.Draw()
-		ball.Draw()
-
 		for x := range 8 {
 			for y := range 3 {
 				blocks[x][y].Draw()
 			}
 		}
+
+		player.Draw()
+		ball.Draw()
 
 		rl.EndDrawing()
 

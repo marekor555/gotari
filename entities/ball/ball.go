@@ -38,11 +38,7 @@ func (ball *Ball) Move(blocks *[constants.BLOCK_COLUMNS][constants.BLOCK_ROWS]bl
 					ball.Direction[0] = -1
 				}
 				if ball.Speed <= constants.BALL_SPEED_MAX {
-<<<<<<< HEAD
-					ball.Speed += 0.5
-=======
 					ball.Speed += constants.BALL_SPEED_STEP
->>>>>>> e728a47 (ball speed is now not constant)
 				}
 				block.Destroy()
 			}

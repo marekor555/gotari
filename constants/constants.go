@@ -12,10 +12,7 @@ const (
 	BALL_RADIUS      float32 = 10
 	BALL_SPEED_START float32 = 2
 	BALL_SPEED_MAX   float32 = 5
-<<<<<<< HEAD
-=======
 	BALL_SPEED_STEP  float32 = 0.5
->>>>>>> e728a47 (ball speed is now not constant)
 
 	LINE_HEIGHT_OFFSET float32 = 25
 	LINE_WIDTH         float32 = 150

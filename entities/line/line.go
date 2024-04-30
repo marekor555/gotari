@@ -11,9 +11,9 @@ type Line struct {
 }
 
 func (line *Line) Move(direction int) {
-	if direction == -1 && line.Collider.X <= 0 {
+	if direction == -1 && line.Collider.X+(line.Collider.Width/2) <= 0 {
 		return
-	} else if direction == 1 && line.Collider.X+line.Collider.Width >= float32(constants.WINDOW_WIDTH) {
+	} else if direction == 1 && line.Collider.X+(line.Collider.Width/2) >= float32(constants.WINDOW_WIDTH) {
 		return
 	}
 	line.Collider.X += float32(direction) * constants.LINE_SPEED

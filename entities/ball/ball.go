@@ -30,9 +30,7 @@ func (ball *Ball) Move(blocks *[constants.BLOCK_COLUMNS][constants.BLOCK_ROWS]bl
 					ball.Direction[1] = 1
 				} else if ball.Point.Y < block.Collider.Y+(block.Collider.Height/2) {
 					ball.Direction[1] = -1
-				}
-
-				if ball.Point.X > block.Collider.X+(block.Collider.Width/2) {
+				} else if ball.Point.X > block.Collider.X+(block.Collider.Width/2) {
 					ball.Direction[0] = 1
 				} else if ball.Point.X < block.Collider.X+(block.Collider.Width/2) {
 					ball.Direction[0] = -1

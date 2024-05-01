@@ -10,7 +10,7 @@ const (
 	BLOCK_COLUMNS int     = 16
 
 	BALL_RADIUS      float32 = 10
-	BALL_SPEED_START float32 = 2
+	BALL_SPEED_START float32 = 4
 	BALL_SPEED_MAX   float32 = 5
 	BALL_SPEED_STEP  float32 = 0.5
 

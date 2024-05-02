@@ -22,7 +22,8 @@ func (ball Ball) CheckFloorTouch() bool {
 	return rl.CheckCollisionPointLine(ball.Point, rl.NewVector2(0, float32(constants.WINDOW_HEIGHT)), rl.NewVector2(float32(constants.WINDOW_WIDTH), float32(constants.WINDOW_HEIGHT)), int32(constants.BALL_RADIUS))
 }
 
-func (ball *Ball) Move(blocks *[constants.BLOCK_COLUMNS][constants.BLOCK_ROWS]block.Block, player line.Line) {
+func (ball *Ball) Move(blocks *[constants.BLOCK_COLUMNS][constants.BLOCK_ROWS]block.Block, player line.Line) int {
+	newPoints := 0
 	for x, column := range blocks {
 		for y := range column {
 			block := &blocks[x][y]
@@ -38,6 +39,7 @@ func (ball *Ball) Move(blocks *[constants.BLOCK_COLUMNS][constants.BLOCK_ROWS]bl
 				if ball.Speed <= constants.BALL_SPEED_MAX {
 					ball.Speed += constants.BALL_SPEED_STEP
 				}
+				newPoints++
 				block.Destroy()
 			}
 		}
@@ -47,11 +49,6 @@ func (ball *Ball) Move(blocks *[constants.BLOCK_COLUMNS][constants.BLOCK_ROWS]bl
 		ball.Speed = constants.BALL_SPEED_START
 		ball.Direction[1] = -1
 		ball.Direction[0] = ((ball.Point.X - (player.Collider.X + player.Collider.Width/2)) / player.Collider.Width) * 2
-		// if ball.Point.X > player.Collider.X+(player.Collider.Width/2) {
-		// 	ball.Direction[0] = 1
-		// } else {
-		// 	ball.Direction[0] = -1
-		// }
 	}
 
 	if ball.Point.X <= 0 || ball.Point.X+constants.BALL_RADIUS >= float32(constants.WINDOW_WIDTH) {
@@ -64,6 +61,8 @@ func (ball *Ball) Move(blocks *[constants.BLOCK_COLUMNS][constants.BLOCK_ROWS]bl
 
 	ball.Point.X += float32(ball.Direction[0]) * ball.Speed
 	ball.Point.Y += float32(ball.Direction[1]) * ball.Speed
+
+	return newPoints
 }
 
 func (ball *Ball) ResetPos() {

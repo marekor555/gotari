@@ -12,6 +12,7 @@ import (
 
 var (
 	blocks [constants.BLOCK_COLUMNS][constants.BLOCK_ROWS]block.Block
+	score  int = 0
 )
 
 func main() {
@@ -33,6 +34,7 @@ func main() {
 			break
 		}
 		if ball.CheckFloorTouch() {
+			score -= 5
 			lives--
 			ball.ResetPos()
 		}
@@ -48,7 +50,7 @@ func main() {
 		player.Draw()
 		ball.Draw()
 
-		rl.DrawText(fmt.Sprintf("Lives left: %d", lives), 0, 0, constants.FONT_SIZE, rl.Green)
+		rl.DrawText(fmt.Sprintf("Lives: %d\nScore: %d", lives, score), 0, 0, constants.FONT_SIZE, rl.Green)
 
 		rl.EndDrawing()
 
@@ -60,6 +62,6 @@ func main() {
 			playerDirection++
 		}
 		player.Move(playerDirection)
-		ball.Move(&blocks, player)
+		score += ball.Move(&blocks, player)
 	}
 }

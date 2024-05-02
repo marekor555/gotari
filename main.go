@@ -11,14 +11,41 @@ import (
 )
 
 var (
-	blocks [constants.BLOCK_COLUMNS][constants.BLOCK_ROWS]block.Block
-	score  int = 0
+	bestScore = 0
 )
 
 func main() {
 	rl.InitWindow(constants.WINDOW_WIDTH, constants.WINDOW_HEIGHT, "gotari")
 	defer rl.CloseWindow()
 	rl.SetTargetFPS(60)
+	for !rl.WindowShouldClose() {
+		menu()
+		newScore := game()
+		fmt.Println(newScore)
+		if newScore > bestScore {
+			bestScore = newScore
+		}
+	}
+}
+
+func menu() {
+	for !rl.WindowShouldClose() {
+		rl.BeginDrawing()
+		rl.ClearBackground(rl.Black)
+		rl.DrawText("Press *space* to start", 0, 0, constants.FONT_SIZE*2, rl.Lime)
+		if bestScore != 0 {
+			rl.DrawText(fmt.Sprintf("Best score: %d", bestScore), 0, constants.FONT_SIZE*2, constants.FONT_SIZE*2, rl.Lime)
+		}
+		rl.EndDrawing()
+		if rl.IsKeyPressed(rl.KeySpace) {
+			break
+		}
+	}
+}
+
+func game() int {
+	var blocks [constants.BLOCK_COLUMNS][constants.BLOCK_ROWS]block.Block
+	score := 0
 
 	for x := range constants.BLOCK_COLUMNS {
 		for y := range constants.BLOCK_ROWS {
@@ -41,10 +68,17 @@ func main() {
 		rl.BeginDrawing()
 		rl.ClearBackground(rl.Black)
 
+		blocksLeft := 0
 		for x := range constants.BLOCK_COLUMNS {
 			for y := range constants.BLOCK_ROWS {
 				blocks[x][y].Draw()
+				if !blocks[x][y].Destroyed {
+					blocksLeft++
+				}
 			}
+		}
+		if blocksLeft == 0 {
+			return score
 		}
 
 		player.Draw()
@@ -62,6 +96,8 @@ func main() {
 			playerDirection++
 		}
 		player.Move(playerDirection)
-		score += ball.Move(&blocks, player)
+		destroyedBlocks := ball.Move(&blocks, player)
+		score += destroyedBlocks
 	}
+	return score
 }

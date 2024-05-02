@@ -4,13 +4,13 @@ const (
 	FONT_SIZE int32 = 20
 	WAIT_TIME int   = 3
 
-	WINDOW_WIDTH  int32 = 800
-	WINDOW_HEIGHT int32 = 450
+	WINDOW_WIDTH  int32 = 960
+	WINDOW_HEIGHT int32 = 540
 	LIVES         int   = 5
 
-	BLOCK_WIDTH   float32 = 50
+	BLOCK_WIDTH   float32 = 60
 	BLOCK_HEIGHT  float32 = 30
-	BLOCK_ROWS    int     = 6
+	BLOCK_ROWS    int     = 9
 	BLOCK_COLUMNS int     = 16
 
 	BALL_RADIUS      float32 = 10

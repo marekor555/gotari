@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"gotari/constants"
 	ball_ "gotari/entities/ball"
 	"gotari/entities/block"
@@ -25,8 +26,16 @@ func main() {
 	}
 	player := line.NewLine()
 	ball := ball_.NewBall()
+	lives := constants.LIVES
 
 	for !rl.WindowShouldClose() {
+		if lives == 0 {
+			break
+		}
+		if ball.CheckFloorTouch() {
+			lives--
+			ball.ResetPos()
+		}
 		rl.BeginDrawing()
 		rl.ClearBackground(rl.Black)
 
@@ -38,6 +47,8 @@ func main() {
 
 		player.Draw()
 		ball.Draw()
+
+		rl.DrawText(fmt.Sprintf("Lives left: %d", lives), 0, 0, constants.FONT_SIZE, rl.Green)
 
 		rl.EndDrawing()
 

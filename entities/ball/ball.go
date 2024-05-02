@@ -18,6 +18,10 @@ func (ball Ball) Draw() {
 	rl.DrawCircle(int32(ball.Point.X), int32(ball.Point.Y), constants.BALL_RADIUS, rl.White)
 }
 
+func (ball Ball) CheckFloorTouch() bool {
+	return rl.CheckCollisionPointLine(ball.Point, rl.NewVector2(0, float32(constants.WINDOW_HEIGHT)), rl.NewVector2(float32(constants.WINDOW_WIDTH), float32(constants.WINDOW_HEIGHT)), int32(constants.BALL_RADIUS))
+}
+
 func (ball *Ball) Move(blocks *[constants.BLOCK_COLUMNS][constants.BLOCK_ROWS]block.Block, player line.Line) {
 	for x, column := range blocks {
 		for y := range column {
@@ -60,6 +64,11 @@ func (ball *Ball) Move(blocks *[constants.BLOCK_COLUMNS][constants.BLOCK_ROWS]bl
 
 	ball.Point.X += float32(ball.Direction[0]) * ball.Speed
 	ball.Point.Y += float32(ball.Direction[1]) * ball.Speed
+}
+
+func (ball *Ball) ResetPos() {
+	ball.Direction = [2]float32{-1, -1}
+	ball.Point = rl.NewVector2(float32(constants.WINDOW_WIDTH/2), float32(constants.WINDOW_HEIGHT)-constants.LINE_HEIGHT_OFFSET*2)
 }
 
 func NewBall() Ball {

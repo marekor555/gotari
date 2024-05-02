@@ -1,8 +1,11 @@
 package constants
 
 const (
+	FONT_SIZE int32 = 20
+
 	WINDOW_WIDTH  int32 = 800
 	WINDOW_HEIGHT int32 = 450
+	LIVES         int   = 5
 
 	BLOCK_WIDTH   float32 = 50
 	BLOCK_HEIGHT  float32 = 30

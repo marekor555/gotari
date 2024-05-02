@@ -2,6 +2,7 @@ package constants
 
 const (
 	FONT_SIZE int32 = 20
+	WAIT_TIME int   = 3
 
 	WINDOW_WIDTH  int32 = 800
 	WINDOW_HEIGHT int32 = 450

@@ -20,10 +20,26 @@ func main() {
 	rl.SetTargetFPS(60)
 	for !rl.WindowShouldClose() {
 		menu()
+		countDown()
 		newScore := game()
 		fmt.Println(newScore)
 		if newScore > bestScore {
 			bestScore = newScore
+		}
+	}
+}
+
+func countDown() {
+	timer := constants.WAIT_TIME * 60
+
+	for !rl.WindowShouldClose() {
+		rl.BeginDrawing()
+		timer--
+		rl.DrawRectangle((constants.WINDOW_WIDTH/2)-(constants.FONT_SIZE*2), (constants.WINDOW_HEIGHT/2)-(constants.FONT_SIZE*2), constants.FONT_SIZE, constants.FONT_SIZE*2, rl.White)
+		rl.DrawText(fmt.Sprintf("%d", timer/60), (constants.WINDOW_WIDTH/2)-(constants.FONT_SIZE*2), (constants.WINDOW_HEIGHT/2)-(constants.FONT_SIZE*2), constants.FONT_SIZE*2, rl.Red)
+		rl.EndDrawing()
+		if timer <= 0 {
+			return
 		}
 	}
 }
@@ -64,6 +80,7 @@ func game() int {
 			score -= 5
 			lives--
 			ball.ResetPos()
+			countDown()
 		}
 		rl.BeginDrawing()
 		rl.ClearBackground(rl.Black)

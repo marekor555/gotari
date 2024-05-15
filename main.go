@@ -3,9 +3,7 @@ package main
 import (
 	"fmt"
 	"gotari/constants"
-	ball_ "gotari/entities/ball"
-	"gotari/entities/block"
-	"gotari/entities/line"
+	"gotari/entities"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
@@ -60,16 +58,16 @@ func menu() {
 }
 
 func game() int {
-	var blocks [constants.BLOCK_COLUMNS][constants.BLOCK_ROWS]block.Block
+	var blocks [constants.BLOCK_COLUMNS][constants.BLOCK_ROWS]entities.Block
 	score := 0
 
 	for x := range constants.BLOCK_COLUMNS {
 		for y := range constants.BLOCK_ROWS {
-			blocks[x][y] = block.NewBlock([2]float32{float32(x) * constants.BLOCK_WIDTH, float32(y)*constants.BLOCK_HEIGHT + 50})
+			blocks[x][y] = entities.NewBlock([2]float32{float32(x) * constants.BLOCK_WIDTH, float32(y)*constants.BLOCK_HEIGHT + 50})
 		}
 	}
-	player := line.NewLine()
-	ball := ball_.NewBall()
+	player := entities.NewLine()
+	ball := entities.NewBall()
 	lives := constants.LIVES
 
 	for !rl.WindowShouldClose() {

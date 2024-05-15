@@ -1,9 +1,7 @@
-package ball
+package entities
 
 import (
 	"gotari/constants"
-	"gotari/entities/block"
-	"gotari/entities/line"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
@@ -22,7 +20,7 @@ func (ball Ball) CheckFloorTouch() bool {
 	return rl.CheckCollisionPointLine(ball.Point, rl.NewVector2(0, float32(constants.WINDOW_HEIGHT)), rl.NewVector2(float32(constants.WINDOW_WIDTH), float32(constants.WINDOW_HEIGHT)), int32(constants.BALL_RADIUS))
 }
 
-func (ball *Ball) Move(blocks *[constants.BLOCK_COLUMNS][constants.BLOCK_ROWS]block.Block, player line.Line) int {
+func (ball *Ball) Move(blocks *[constants.BLOCK_COLUMNS][constants.BLOCK_ROWS]Block, player Line) int {
 	newPoints := 0
 	for x, column := range blocks {
 		for y := range column {

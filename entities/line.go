@@ -1,4 +1,4 @@
-package line
+package entities
 
 import (
 	"gotari/constants"

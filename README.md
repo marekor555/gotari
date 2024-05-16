@@ -4,7 +4,7 @@
 Gotari is an atari breakout clone written in go.
 
 # INSTALLING
-There is no pre-build binary, so user can customize options 
+There is no pre-build binary, so user can customize options. 
 You need `git` and golang compiler(see [go.dev]("https://go.dev/dl"))
 
 1. Firstly, clone the repo: `git clone https://github.com/marekor555/gotari`

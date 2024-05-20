@@ -1,4 +1,4 @@
-> This project is meant for learning purpouses.
+> This project is meant for learning purposes.
 
 # INFO
 Gotari is an atari breakout clone written in go.
